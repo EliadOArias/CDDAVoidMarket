@@ -1,0 +1,14 @@
+[
+  {
+    "type": "jmath_function",
+    "id": "vm_get_game_rate",
+    "num_args": 0,
+    "return": "91/game_option('SEASON_LENGTH')"
+  },
+  {
+    "type": "jmath_function",
+    "id": "vm_get_weight",
+    "num_args": 4,
+    "return": "max(-(_0 - _1) * (_0 - _2) * (_3 / ((_1 - _2) * (_1 - _2) / 4)), 0)"
+  }
+]

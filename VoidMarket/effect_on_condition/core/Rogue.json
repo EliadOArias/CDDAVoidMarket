@@ -1,0 +1,469 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue",
+    "condition": "u_is_avatar",
+    "effect": [
+      { "run_eocs": [ "EOC_VM_iso_rogue_update" ] },
+      {
+        "if": { "math": [ "ISO_CURRENT_LEVEL", "==", "1" ] },
+        "then": [ { "math": [ "u_ISO_DANGER", "=", "0" ] }, { "run_eocs": [ "EOC_VM_iso_rogue__begin" ] } ],
+        "else": [
+          {
+            "if": { "math": [ "ISO_CURRENT_LEVEL % SAFEPOINT_INTERVAL", "==", "0" ] },
+            "then": [ { "run_eocs": [ "EOC_VM_iso_rogue__safe" ] } ],
+            "else": [
+              {
+                "weighted_list_eocs": [
+                  [ "EOC_VM_iso_rogue__rest", { "math": [ "vm_get_weight(u_ISO_DANGER,-100,100,50)" ] } ],
+                  [ "EOC_VM_iso_rogue__avarice", { "math": [ "vm_get_weight(u_ISO_DANGER,-50,150,100)" ] } ],
+                  [ "EOC_VM_iso_rogue__pride", { "math": [ "vm_get_weight(u_ISO_DANGER,-50,150,100)" ] } ],
+                  [ "EOC_VM_iso_rogue__gluttony", { "math": [ "vm_get_weight(u_ISO_DANGER,0,200,100)" ] } ],
+                  [ "EOC_VM_iso_rogue__lust", { "math": [ "vm_get_weight(u_ISO_DANGER,0,200,100)" ] } ],
+                  [
+                    "EOC_VM_iso_rogue__dangerI",
+                    { "math": [ "vm_get_weight(u_ISO_DANGER,50,150,100) + ( u_ISO_DANGER >= 150 ) * 100" ] }
+                  ],
+                  [
+                    "EOC_VM_iso_rogue__dangerII",
+                    { "math": [ "vm_get_weight(u_ISO_DANGER,50,150,100) + ( u_ISO_DANGER >= 150 ) * 100" ] }
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_roll_item_quasi_memory",
+    "effect": [
+      { "math": [ "_sum", "=", "0" ] },
+      {
+        "foreach": "item_group",
+        "var": { "context_val": "id" },
+        "target": "vm_quasi_memory_artifacts",
+        "effect": [ { "math": [ "_sum", "++" ] } ]
+      },
+      { "math": [ "_i", "=", "_sum" ] },
+      { "math": [ "_is_get", "=", "0" ] },
+      {
+        "foreach": "item_group",
+        "var": { "context_val": "id" },
+        "target": "vm_quasi_memory_artifacts",
+        "effect": [
+          {
+            "if": { "math": [ "(rand(_i) == 0) * (1 - _is_get)" ] },
+            "then": [
+              { "set_string_var": { "context_val": "id" }, "target_var": { "global_val": "vm_val_storage" } },
+              { "math": [ "_is_get", "=", "1" ] }
+            ]
+          },
+          { "math": [ "_i", "--" ] }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_roll_item_alterego",
+    "effect": [
+      { "math": [ "_sum", "=", "0" ] },
+      {
+        "foreach": "item_group",
+        "var": { "context_val": "id" },
+        "target": "vm_alterego_artifacts",
+        "effect": [ { "math": [ "_sum", "++" ] } ]
+      },
+      { "math": [ "_i", "=", "_sum" ] },
+      { "math": [ "_is_get", "=", "0" ] },
+      {
+        "foreach": "item_group",
+        "var": { "context_val": "id" },
+        "target": "vm_alterego_artifacts",
+        "effect": [
+          {
+            "if": { "math": [ "(rand(_i) == 0) * (1 - _is_get)" ] },
+            "then": [
+              { "set_string_var": { "context_val": "id" }, "target_var": { "global_val": "vm_val_storage" } },
+              { "math": [ "_is_get", "=", "1" ] }
+            ]
+          },
+          { "math": [ "_i", "--" ] }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_roller_quasi_memory_3",
+    "effect": [
+      { "run_eoc_with": "EOC_VM_iso_roll_item_quasi_memory" },
+      { "set_string_var": { "global_val": "vm_val_storage" }, "target_var": { "context_val": "item_1" } },
+      { "run_eoc_with": "EOC_VM_iso_roll_item_quasi_memory" },
+      { "set_string_var": { "global_val": "vm_val_storage" }, "target_var": { "context_val": "item_2" } },
+      { "run_eoc_with": "EOC_VM_iso_roll_item_quasi_memory" },
+      { "set_string_var": { "global_val": "vm_val_storage" }, "target_var": { "context_val": "item_3" } },
+      {
+        "run_eoc_selector": [
+          { "id": "EOC_VM_iso_roller_quasi_memory_3__option_1", "effect": [ { "map_spawn_item": { "context_val": "item_1" } } ] },
+          {
+            "id": "EOC_VM_iso_roller_quasi_memory_3__option_2",
+            "effect": [ { "map_spawn_item": { "context_val": "item_2" } } ]
+          },
+          {
+            "id": "EOC_VM_iso_roller_quasi_memory_3__option_3",
+            "effect": [ { "map_spawn_item": { "context_val": "item_3" } } ]
+          }
+        ],
+        "names": [ "<item_name:<context_val:item_1>>", "<item_name:<context_val:item_2>>", "<item_name:<context_val:item_3>>" ],
+        "descriptions": [
+          "获得 <item_name:<context_val:item_1>>。\n<item_description:<context_val:item_1>>",
+          "获得 <item_name:<context_val:item_2>>。\n<item_description:<context_val:item_2>>",
+          "获得 <item_name:<context_val:item_3>>。\n<item_description:<context_val:item_3>>"
+        ],
+        "title": "<color_light_green>抉择/记忆III</color>\n失控度：<u_val:ISO_DANGER>\n选择一件神器/拟记忆……",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_roller_alterego_2",
+    "effect": [
+      { "run_eoc_with": "EOC_VM_iso_roll_item_alterego" },
+      { "set_string_var": { "global_val": "vm_val_storage" }, "target_var": { "context_val": "item_1" } },
+      { "run_eoc_with": "EOC_VM_iso_roll_item_alterego" },
+      { "set_string_var": { "global_val": "vm_val_storage" }, "target_var": { "context_val": "item_2" } },
+      {
+        "run_eoc_selector": [
+          { "id": "EOC_VM_iso_roller_alterego_2__option_1", "effect": [ { "map_spawn_item": { "context_val": "item_1" } } ] },
+          {
+            "id": "EOC_VM_iso_roller_alterego_2__option_2",
+            "effect": [ { "map_spawn_item": { "context_val": "item_2" } } ]
+          }
+        ],
+        "names": [ "<item_name:<context_val:item_1>>", "<item_name:<context_val:item_2>>" ],
+        "descriptions": [
+          "获得 <item_name:<context_val:item_1>>。\n<item_description:<context_val:item_1>>",
+          "获得 <item_name:<context_val:item_2>>。\n<item_description:<context_val:item_2>>"
+        ],
+        "title": "<color_light_green>抉择/人格II</color>\n失控度：<u_val:ISO_DANGER>\n选择一件神器/他人格……",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue_update",
+    "condition": "u_is_avatar",
+    "effect": [
+      { "u_lose_effect": "vm_pride" },
+      { "u_lose_effect": "vm_humility" },
+      { "if": { "math": [ "ISO_CURRENT_LEVEL", ">=", "3" ] }, "then": [ { "u_lose_effect": "vm_ex_power" } ] }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__begin",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__begin_power",
+            "effect": [
+              { "u_add_effect": "vm_ex_power", "duration": "PERMANENT" },
+              { "u_message": "一时的力量充斥你的全身。", "popup": true }
+            ]
+          },
+          {
+            "id": "EOC_VM_iso_rogue_effect__begin_relic1",
+            "effect": [
+              {
+                "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3", "EOC_VM_iso_roller_quasi_memory_3", "EOC_VM_iso_roller_quasi_memory_3" ]
+              },
+              {
+                "u_message": "你在电梯地上捡到了前人留下的遗物。看着它们，你能感到不属于你的记忆在涌进来。",
+                "popup": true
+              }
+            ]
+          },
+          {
+            "id": "EOC_VM_iso_rogue_effect__begin_relic2",
+            "effect": [
+              { "run_eocs": [ "EOC_VM_iso_roller_alterego_2" ] },
+              {
+                "u_message": "你隐藏的人格在这里凝聚成形。你无法理解，却无可奈何。",
+                "popup": true
+              }
+            ]
+          },
+          {
+            "id": "EOC_VM_iso_rogue_effect__begin_score",
+            "effect": [
+              { "math": [ "u_vm_score_pure", "+=", "5000" ] },
+              { "math": [ "u_vm_score_sum", "+=", "5000" ] },
+              {
+                "u_message": "你储存在虚空的积分还能使用。赞美虚空！\n你获得了5000点纯净积分！",
+                "popup": true
+              }
+            ]
+          }
+        ],
+        "names": [ "一时的力量", "前人的遗产", "第二人格", "些许家资" ],
+        "descriptions": [
+          "绝对的力量。\n<color_light_green>获得 绝对的力量（持续到第三层）</color>",
+          "电梯里来自前人的遗产。\n<color_light_green>获得 随机神器/拟记忆x3</color>",
+          "一个隐藏在你体内的意志。\n<color_light_green>获得 随机神器/他人格</color>",
+          "些许寄存在虚空的家资。\n<color_light_green>获得 5000 纯净积分</color>"
+        ],
+        "title": "<color_light_green>现实/开始</color>\n失控度：<u_val:ISO_DANGER>\n迷途者落入了恶魔的乐园，世界被异化，意识被扭曲。\n但是，至少你还有……",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__safe",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__safe_rest",
+            "effect": [
+              { "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3" ] },
+              { "run_eoc_with": "EOC_VM_try_heal", "variables": { "heal_amout": "50" } },
+              { "math": [ "u_pain()", "=", "max(0, u_pain() - 50)" ] },
+              { "u_message": "你感觉好多了。", "popup": true }
+            ]
+          }
+        ],
+        "names": [ "休息" ],
+        "descriptions": [
+          "在安全区修养。\n<color_light_green>获得 治疗（中）\n获得 止痛（中）\n获得 随机神器/拟记忆</color>"
+        ],
+        "title": "<color_light_green>现实/安全区</color>\n失控度：<u_val:ISO_DANGER>\n你安全了……暂时。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__rest",
+    "effect": [
+      {
+        "run_eoc_selector": [ "EOC_VM_iso_rogue_effect__rest" ],
+        "names": [ "短暂休息" ],
+        "descriptions": [ "在短暂的平静中休息。\n<color_light_green>失控度 -\n获得 随机神器/拟记忆</color>" ],
+        "title": "<color_light_green>现实/宁静</color>\n失控度：<u_val:ISO_DANGER>\n至少在你离开电梯前，这里非常安静。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__avarice",
+    "effect": [
+      {
+        "run_eoc_selector": [ "EOC_VM_iso_rogue_effect__storage", "EOC_VM_iso_rogue_effect__rest" ],
+        "names": [ "一时妄念", "保持沉默" ],
+        "descriptions": [
+          "将所有纯净积分存入电梯。下一层，它们会加倍回来，它告诉你。\n<color_yellow>失去 所有纯净积分</color>",
+          "拒绝它的好意。\n<color_light_green>失控度 -\n获得 随机神器/拟记忆</color>"
+        ],
+        "title": "<color_yellow>自我/贪婪</color>\n失控度：<u_val:ISO_DANGER>\n电梯里的阴影看向了你的钱包。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__pride",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__pride",
+            "effect": [
+              { "u_add_effect": "vm_pride", "duration": "PERMANENT" },
+              { "math": [ "u_val('strength_base')", "+=", "3" ] },
+              { "u_message": "向它们展示你的力量。", "popup": true }
+            ]
+          },
+          {
+            "id": "EOC_VM_iso_rogue_effect__humility",
+            "effect": [ { "u_add_effect": "vm_humility", "duration": "PERMANENT" }, { "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3" ] } ]
+          }
+        ],
+        "names": [ "不屑一顾", "做好准备" ],
+        "descriptions": [
+          "它对你的力量一无所知。\n<color_red>易伤 ++（持续一层）</color>\n<color_light_green>力量 +（永久）</color>",
+          "你已经做好了战斗的准备。\n<color_light_green>闪避 +（持续一层）\n获得 随机神器/拟记忆</color>"
+        ],
+        "title": "<color_yellow>自我/傲慢</color>\n失控度：<u_val:ISO_DANGER>\n电梯里的阴影告诫你将要面对的强敌。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__gluttony",
+    "condition": { "not": { "u_has_effect": "vm_gluttony" } },
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__gluttony",
+            "effect": [ { "map_spawn_item": "vm_alterego_gluttony" }, { "u_message": "饥饿感挥之不去。", "popup": true } ]
+          },
+          "EOC_VM_iso_rogue_effect__rest"
+        ],
+        "names": [ "享用虚无", "自我控制" ],
+        "descriptions": [
+          "你大快朵颐空气盛宴，而对食物的渴望挥之不去。\n<color_light_green>获得 他人格/无飨宴</color>",
+          "节制。显然，人不能依靠空气存活，你的理智告诉你。\n<color_light_green>失控度 -\n获得 随机神器/拟记忆</color>"
+        ],
+        "title": "<color_yellow>自我/暴食</color>\n失控度：<u_val:ISO_DANGER>\n电梯里的阴影捧起一把看不见的美食。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__lust",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__lust",
+            "effect": [
+              { "map_spawn_item": "vm_alterego_silver_cup" },
+              { "math": [ "u_ISO_DANGER", "+=", "20" ] },
+              { "u_message": "堕落与失控缠绕在你身上。", "popup": true }
+            ]
+          },
+          "EOC_VM_iso_rogue_effect__rest"
+        ],
+        "names": [ "否认", "承认" ],
+        "descriptions": [
+          "你已经精神失常了，阴影警告你。你不在乎。\n<color_light_green>获得 他人格/鲜血银杯</color>\n<color_red>失控度 ++</color>",
+          "时刻保持理智。至少是你认为的理智。\n<color_light_green>失控度 -\n获得 随机神器/拟记忆</color>"
+        ],
+        "title": "<color_red>自我/淫欲</color>\n失控度：<u_val:ISO_DANGER>\n欲望会把每一个人吞噬，能对抗它的只有贞洁。阴影对你说。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__dangerI",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__dangerI_face",
+            "effect": [
+              { "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3" ] },
+              { "u_message": "你别无他选。", "popup": true },
+              { "u_spawn_monster": "", "real_count": 200, "min_radius": 20, "max_radius": 500, "target_range": 120 },
+              { "u_spawn_monster": "mon_zombie_hulk", "real_count": 100, "min_radius": 40, "max_radius": 500 },
+              { "u_spawn_monster": "mon_zombie_kevlar_2", "real_count": 100, "min_radius": 40, "max_radius": 500 }
+            ]
+          }
+        ],
+        "names": [ "应对挑战" ],
+        "descriptions": [ "别无他选。\n<color_light_green>获得 随机神器/拟记忆</color>" ],
+        "title": "<color_red>崩溃/路遇险敌</color>\n失控度：<u_val:ISO_DANGER>\n电梯外面传来了危险的气息。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__dangerII",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__dangerII_face",
+            "effect": [
+              { "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3" ] },
+              { "u_message": "你别无他选。", "popup": true },
+              {
+                "u_spawn_monster": "GROUP_ZOMBIE_UPGRADE",
+                "real_count": 1000,
+                "min_radius": 20,
+                "max_radius": 500,
+                "group": true
+              },
+              {
+                "u_spawn_monster": "GROUP_ZOMBIE_BRUTE",
+                "real_count": 100,
+                "min_radius": 20,
+                "max_radius": 500,
+                "group": true
+              },
+              {
+                "u_spawn_monster": "GROUP_SOLDIER_UPGRADE",
+                "real_count": 100,
+                "min_radius": 20,
+                "max_radius": 500,
+                "group": true
+              },
+              { "u_spawn_monster": "mon_zombie", "real_count": 100, "min_radius": 20, "max_radius": 500 },
+              { "u_spawn_monster": "mon_feral_human_pipe", "real_count": 10, "min_radius": 20, "max_radius": 70 }
+            ]
+          }
+        ],
+        "names": [ "应对挑战" ],
+        "descriptions": [ "别无他选。\n<color_light_green>获得 随机神器/拟记忆</color>" ],
+        "title": "<color_red>崩溃/尸山血海</color>\n失控度：<u_val:ISO_DANGER>\n电梯外面的尸臭味和血腥味疯狂涌入。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue__dangerIII",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          {
+            "id": "EOC_VM_iso_rogue_effect__dangerIII_face",
+            "effect": [
+              { "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3" ] },
+              { "u_message": "你别无他选。", "popup": true },
+              { "u_spawn_monster": "mon_shoggoth", "real_count": 100, "min_radius": 20, "max_radius": 500 },
+              { "u_spawn_monster": "mon_mi_go_myrmidon", "real_count": 200, "min_radius": 20, "max_radius": 500 },
+              { "u_spawn_monster": "mon_mi_go_guard", "real_count": 200, "min_radius": 20, "max_radius": 500 }
+            ]
+          }
+        ],
+        "names": [ "应对挑战" ],
+        "descriptions": [ "别无他选。\n<color_light_green>获得 随机神器/拟记忆</color>" ],
+        "title": "<color_red>崩溃/森罗地狱</color>\n失控度：<u_val:ISO_DANGER>\n电梯外面的充斥着火光和硝烟。",
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue_effect__storage",
+    "effect": [
+      { "math": [ "u_vm_score_pure_stored", "=", "u_vm_score_pure * 2" ] },
+      { "math": [ "u_vm_score_pure", "=", "0" ] },
+      { "u_message": "你失去了很多，不过你相信你会得到更多。", "popup": true }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_iso_rogue_effect__rest",
+    "effect": [
+      { "run_eocs": [ "EOC_VM_iso_roller_quasi_memory_3" ] },
+      { "math": [ "u_ISO_DANGER", "-=", "5" ] },
+      { "u_message": "你尝试着自我控制。", "popup": true }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "vm_bucket",
+    "type": "GENERIC",
+    "category": "container",
+    "name": { "str": "虚空桶" },
+    "description": "用来承接虚空中产生的液体的桶，拿起来时不能存储任何东西。",
+    "looks_like": "bucket",
+    "ascii_picture": "bucket",
+    "weight": "725 g",
+    "volume": "5500 ml",
+    "longest_side": "25 cm",
+    "price": "100 USD",
+    "price_postapoc": "100 cent",
+    "material": [ "steel" ],
+    "symbol": ")",
+    "color": "light_gray",
+    "use_action": { "type": "deploy_furn", "furn_type": "f_vm_bucket" },
+    "qualities": [ [ "BOIL", 2 ] ]
+  },
+  {
+    "id": "vm_autodoc_placer",
+    "type": "GENERIC",
+    "category": "container",
+    "name": { "str": "全自动医疗仪兑换券" },
+    "description": "使用这张兑换券，使虚空在那个位置放置一个全自动手术仪，需要和全自动手术仪手术台搭配使用。",
+    "looks_like": "scorecard",
+    "weight": "1 g",
+    "volume": "2 ml",
+    "price": "8500 USD",
+    "price_postapoc": "8599 cent",
+    "material": [ "paper" ],
+    "symbol": ",",
+    "color": "light_gray",
+    "use_action": { "type": "deploy_furn", "furn_type": "f_autodoc" }
+  },
+  {
+    "id": "vm_autodoc_couch_placer",
+    "type": "GENERIC",
+    "category": "container",
+    "name": { "str": "全自动医疗仪手术台兑换券" },
+    "description": "使用这张兑换券，使虚空在那个位置放置一个全自动手术仪手术台，需要和全自动手术仪搭配使用。",
+    "looks_like": "scorecard",
+    "weight": "1 g",
+    "volume": "2 ml",
+    "price": "200 USD",
+    "price_postapoc": "200 cent",
+    "material": [ "paper" ],
+    "symbol": ",",
+    "color": "light_gray",
+    "use_action": { "type": "deploy_furn", "furn_type": "f_autodoc_couch" }
+  }
+]

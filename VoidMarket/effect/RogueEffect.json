@@ -1,0 +1,161 @@
+[
+  {
+    "type": "effect_type",
+    "id": "vm_pride",
+    "name": [ "傲慢/偏见" ],
+    "desc": [ "你相信你的力量。" ],
+    "enchantments": [ { "condition": "always", "values": [ { "value": "ARMOR_ALL", "add": 10 } ] } ],
+    "rating": "bad"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_humility",
+    "name": [ "谦逊" ],
+    "desc": [ "你做好了对敌的准备。" ],
+    "enchantments": [ { "condition": "always", "values": [ { "value": "BONUS_DODGE", "add": 2 } ] } ],
+    "rating": "good"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_gluttony",
+    "name": [ "暴食/饥肠辘辘" ],
+    "desc": [ "饥饿感挥之不去，虚无填满了你的胃——或许还有你的武器。" ],
+    "enchantments": [
+      {
+        "values": [
+          { "value": "MELEE_DAMAGE", "multiply": { "math": [ "clamp( (u_val('hunger')) / 80, 0, 3.75) - 0.3" ] } },
+          { "value": "STRENGTH", "add": { "math": [ "clamp( (u_val('hunger')) / 50, 0, 6) - 2" ] } },
+          { "value": "ARMOR_BASH", "add": { "math": [ "clamp( -(300 - u_val('hunger')) / 10, -30, 0) - 3" ] } },
+          { "value": "ARMOR_CUT", "add": { "math": [ "clamp( -(300 - u_val('hunger')) / 7, -43, 0) - 4" ] } },
+          { "value": "ARMOR_BULLET", "add": { "math": [ "clamp( -(300 - u_val('hunger')) / 10, -30, 0) - 3" ] } },
+          { "value": "ARMOR_ELEC", "add": { "math": [ "clamp( -(300 - u_val('hunger')) / 30, -10, 0) " ] } }
+        ]
+      }
+    ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_ex_power",
+    "name": [ "绝对力量" ],
+    "desc": [ "或许你无法走多远，但是至少你能做一时的英雄。" ],
+    "enchantments": [
+      {
+        "values": [
+          { "value": "MELEE_DAMAGE", "multiply": 6.0 },
+          { "value": "PAIN", "multiply": -0.9 },
+          { "value": "PAIN_PENALTY_MOD_STR", "multiply": -0.9 },
+          { "value": "PAIN_PENALTY_MOD_DEX", "multiply": -0.9 },
+          { "value": "PAIN_PENALTY_MOD_INT", "multiply": -0.9 },
+          { "value": "PAIN_PENALTY_MOD_PER", "multiply": -0.9 },
+          { "value": "PAIN_PENALTY_MOD_SPEED", "multiply": -0.9 },
+          { "value": "STRENGTH", "multiply": 3.0 },
+          { "value": "KNOCKBACK_RESIST", "add": 75 },
+          { "value": "ARMOR_ALL", "add": -15 }
+        ]
+      }
+    ],
+    "removes_effects": [
+      "infected",
+      "bite",
+      "bleed",
+      "fungus",
+      "dermatik",
+      "winded",
+      "poison",
+      "badpoison",
+      "venom_dmg",
+      "venom_weaken",
+      "grabbed",
+      "dazed"
+    ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_nano_helper",
+    "name": [ "纳米安全无人机" ],
+    "desc": [ "从记忆中拟造的机群正在为你的健康保驾护航。当然，像记忆里那样，这是收费的。" ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_boxing_king",
+    "name": [ "蓄力重拳" ],
+    "desc": [ "你不知道这份力量是否有极限，你能做的只有相信你的拳头。" ],
+    "enchantments": [
+      { "values": [ { "value": "MELEE_DAMAGE", "multiply": { "math": [ "(time('now') - u_prev_melee_attack_time)/30" ] } } ] }
+    ],
+    "removes_effects": [
+      "infected",
+      "bite",
+      "bleed",
+      "fungus",
+      "dermatik",
+      "winded",
+      "poison",
+      "badpoison",
+      "venom_dmg",
+      "venom_weaken",
+      "grabbed",
+      "dazed"
+    ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_blood_speed",
+    "name": [ "淫欲/如鱼得水" ],
+    "desc": [ "失控对这一刻的你来说犹如鱼得到了水。你沉浸在这一刻的堕落中。" ],
+    "enchantments": [ { "values": [ { "value": "SPEED", "add": { "math": [ "u_ISO_DANGER" ] } } ] } ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_zombie_slayer",
+    "name": [ "复仇死者" ],
+    "desc": [ "向丧尸进行无休止的复仇。丧尸，杀无赦。" ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_zombie_slayer__anger",
+    "name": [ "复仇怒火" ],
+    "desc": [ "力量提升。" ],
+    "max_intensity": 40,
+    "int_dur_factor": 5,
+    "max_duration": 200,
+    "scaling_mods": { "str_mod": [ 1 ] },
+    "show_intensity": true,
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_jerrycan",
+    "name": [ "润滑表面" ],
+    "desc": [ "你的全身表面覆盖了一层虚幻的润滑油，没有人能抓住你。" ],
+    "removes_effects": [ "grabbed" ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_potato_finder",
+    "name": [ "土豆发掘家" ],
+    "desc": [ "让我看看哪里有土豆？" ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_vector_lover",
+    "name": [ "隐秘材料" ],
+    "desc": [ "你的手提箱为你准备了一些神秘的知识和材料……" ],
+    "rating": "mixed"
+  },
+  {
+    "type": "effect_type",
+    "id": "vm_match_reborn",
+    "name": [ "熄灭的火柴" ],
+    "desc": [ "最后的希望，虽然大多数时候只会幻灭。" ],
+    "rating": "mixed"
+  }
+]

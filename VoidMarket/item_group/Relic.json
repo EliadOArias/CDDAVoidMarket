@@ -1,0 +1,62 @@
+[
+  {
+    "type": "item_group",
+    "id": "vm_quasi_memory_artifacts",
+    "subtype": "distribution",
+    "items": [
+      { "item": "vm_quasi_memory_star_chalice", "prob": 100 },
+      { "item": "vm_quasi_memory_water_drop", "prob": 100 },
+      { "item": "vm_quasi_memory_security_card", "prob": 100 },
+      { "item": "vm_quasi_memory_punch", "prob": 100 },
+      { "item": "vm_quasi_memory_sharp", "prob": 100 },
+      { "item": "vm_quasi_memory_gun_medal", "prob": 100 },
+      { "item": "vm_quasi_memory_brain_chip", "prob": 100 },
+      { "item": "vm_quasi_memory_forbidden_tile", "prob": 100 },
+      { "item": "vm_quasi_memory_zombie_slayer", "prob": 100 },
+      { "item": "vm_quasi_memory_glass_heart", "prob": 100 },
+      { "item": "vm_quasi_memory_steel_body", "prob": 100 },
+      { "item": "vm_quasi_memory_jerrycan", "prob": 100 },
+      { "item": "vm_quasi_memory_cat_star", "prob": 100 },
+      { "item": "vm_quasi_memory_lightning_rod", "prob": 100 },
+      { "item": "vm_quasi_memory_potato", "prob": 100 },
+      { "item": "vm_quasi_memory_vector", "prob": 100 },
+      { "item": "vm_quasi_memory_jian", "prob": 100 },
+      { "item": "vm_quasi_memory_dumbbell", "prob": 100 },
+      { "item": "vm_quasi_memory_match", "prob": 100 },
+      { "item": "vm_quasi_memory_book_binder", "prob": 100 },
+      { "item": "vm_quasi_memory_battery", "prob": 100 },
+      { "item": "vm_quasi_memory_gear", "prob": 100 }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "vm_raw_quasi_memory_artifacts",
+    "subtype": "distribution",
+    "items": [ [ "vm_quasi_memory_holy_symbol", 100 ] ]
+  },
+  {
+    "type": "item_group",
+    "id": "vm_raw_quasi_memory_artifact",
+    "subtype": "distribution",
+    "entries": [
+      {
+        "group": "vm_raw_quasi_memory_artifacts",
+        "artifact": {
+          "procgen_id": "vm_procgen_base",
+          "rules": { "power_level": 5000, "max_attributes": 4, "max_negative_power": 0, "resonant": false }
+        },
+        "prob": 100
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "vm_alterego_artifacts",
+    "subtype": "distribution",
+    "items": [
+      { "item": "vm_alterego_gluttony", "prob": 100 },
+      { "item": "vm_alterego_ouroboros", "prob": 100 },
+      { "item": "vm_alterego_silver_cup", "prob": 100 }
+    ]
+  }
+]

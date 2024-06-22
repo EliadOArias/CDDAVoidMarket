@@ -1,0 +1,104 @@
+[
+  {
+    "type": "relic_procgen_data",
+    "id": "vm_procgen_base",
+    "passive_add_procgen_values": [
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 1,
+        "type": "BONUS_DODGE",
+        "increment": 1,
+        "power_per_increment": 3000
+      },
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 5,
+        "type": "DEXTERITY",
+        "increment": 1,
+        "power_per_increment": 600
+      },
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 5,
+        "type": "INTELLIGENCE",
+        "increment": 1,
+        "power_per_increment": 600
+      },
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 5,
+        "type": "PERCEPTION",
+        "increment": 1,
+        "power_per_increment": 600
+      },
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 5,
+        "type": "STRENGTH",
+        "increment": 1,
+        "power_per_increment": 600
+      },
+      { "weight": 100, "min_value": 1, "max_value": 15, "type": "SPEED", "increment": 1, "power_per_increment": 600 },
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 500,
+        "type": "MAX_MANA",
+        "increment": 1,
+        "power_per_increment": 6
+      },
+      {
+        "weight": 100,
+        "min_value": 1,
+        "max_value": 3000,
+        "type": "MAX_STAMINA",
+        "increment": 1,
+        "power_per_increment": 1
+      }
+    ],
+    "passive_mult_procgen_values": [
+      {
+        "weight": 100,
+        "min_value": 0,
+        "max_value": 0.2,
+        "type": "ATTACK_SPEED",
+        "increment": 0.1,
+        "power_per_increment": 2000
+      },
+      {
+        "weight": 100,
+        "min_value": 0,
+        "max_value": 0.2,
+        "type": "SPEED",
+        "increment": 0.1,
+        "power_per_increment": 2000
+      },
+      {
+        "weight": 100,
+        "min_value": 0,
+        "max_value": 0.2,
+        "type": "REGEN_STAMINA",
+        "increment": 0.1,
+        "power_per_increment": 2000
+      },
+      {
+        "weight": 100,
+        "min_value": 0,
+        "max_value": 0.2,
+        "type": "MELEE_DAMAGE",
+        "increment": 0.1,
+        "power_per_increment": 2000
+      }
+    ],
+    "type_weights": [ { "weight": 100, "value": "passive_enchantment_add" }, { "weight": 50, "value": "passive_enchantment_mult" } ],
+    "items": [
+      { "weight": 100, "item": "vm_quasi_memory_holy_symbol" },
+      { "weight": 100, "item": "vm_quasi_memory_star_chalice" }
+    ]
+  }
+]

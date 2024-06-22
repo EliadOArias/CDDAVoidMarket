@@ -1,0 +1,25 @@
+[
+  {
+    "type": "mutation",
+    "id": "vm_trait_cat_star",
+    "name": {
+      "str": "喵星尾巴"
+    },
+    "points": 0,
+    "vitamin_cost": 20,
+    "visibility": 0,
+    "ugliness": 0,
+    "mixed_effect": true,
+    "description": "你的身上长出了虚幻的尾巴来沟通喵星。虽然沟通不上了，但它还是会在你攻击时追加攻击。",
+    "attacks": {
+      "attack_text_u": "你呼唤喵星射击了%s！",
+      "attack_text_npc": "%1$s呼唤喵星射击了%2$s！",
+      "body_part": "eyes",
+      "chance": 5,
+      "base_damage": {
+        "damage_type": "bullet",
+        "amount": 55
+      }
+    }
+  }
+]

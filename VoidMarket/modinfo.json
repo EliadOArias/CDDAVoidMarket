@@ -1,0 +1,11 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "VoidMarket",
+    "name": "虚空贸易",
+    "authors": [ "EliadOArias" ],
+    "description": "添加通过积分进行兑换的虚空商店。这是早期版本，未进行合理的平衡。已经为大魔法提供了兼容。",
+    "category": "misc_additions",
+    "dependencies": [ "dda" ]
+  }
+]

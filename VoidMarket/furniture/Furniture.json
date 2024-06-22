@@ -1,0 +1,44 @@
+[
+  {
+    "type": "furniture",
+    "id": "f_vm_bucket",
+    "name": "虚空桶",
+    "symbol": "o",
+    "color": "white",
+    "description": "用来承接虚空中产生的液体的桶，拿放在地上时能存储虚空流出的液体。",
+    "move_cost_mod": 2,
+    "coverage": 30,
+    "required_str": -1,
+    "deployed_item": "vm_bucket",
+    "flags": [
+      "TRANSPARENT",
+      "FLAMMABLE_HARD",
+      "MOUNTABLE",
+      "LIQUIDCONT"
+    ],
+    "examine_action": "finite_water_source",
+    "deconstruct": {
+      "items": [
+        {
+          "item": "vm_bucket",
+          "count": 1
+        }
+      ]
+    },
+    "bash": {
+      "str_min": 2,
+      "str_max": 5,
+      "sound": "porcelain breaking!",
+      "sound_fail": "whunk!",
+      "items": [
+        {
+          "item": "vm_bucket",
+          "count": [
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  }
+]

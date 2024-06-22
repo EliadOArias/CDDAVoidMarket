@@ -1,0 +1,350 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base",
+    "condition": "u_is_avatar",
+    "effect": [
+      {
+        "run_eocs": [
+          {
+            "id": "EOC_VM_mod_check",
+            "effect": [
+              {
+                "if": { "math": [ "mod_load_order('magiclysm')", "!=", "-1" ] },
+                "then": [
+                  {
+                    "set_string_var": "\n魔法积分：<u_val:vm_score_magic>",
+                    "target_var": { "global_val": "vm_score_magic_display" }
+                  }
+                ]
+              },
+              {
+                "if": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
+                "then": [
+                  { "set_string_var": "\n纯净积分：<u_val:vm_score_pure>", "target_var": { "global_val": "vm_score_pure_display" } }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "run_eoc_selector": [
+          "EOC_VM_base_comestible",
+          "EOC_VM_base_tool",
+          "EOC_VM_base_tool_armor",
+          "EOC_VM_base_armor",
+          "EOC_VM_base_pet_armor",
+          "EOC_VM_base_generic",
+          "EOC_VM_base_gun",
+          "EOC_VM_base_gun_mod",
+          "EOC_VM_base_ammo",
+          "EOC_VM_base_magazine",
+          "EOC_VM_base_book",
+          "EOC_VM_base_bionic_item",
+          "EOC_VM_base_wheel",
+          "EOC_VM_base_engine",
+          "EOC_VM_base_extra"
+        ],
+        "names": [
+          "可食用物区",
+          "工具区",
+          "工具装备区",
+          "装备区",
+          "宠物装备区",
+          "通用区",
+          "枪械区",
+          "枪械配件区",
+          "弹药区",
+          "弹匣区",
+          "书籍区",
+          "生化插件区",
+          "轮胎区",
+          "引擎区",
+          "额外区"
+        ],
+        "descriptions": [
+          "兑换可食用物的区域。",
+          "兑换工具的区域。",
+          "兑换工具装备的区域。",
+          "兑换装备的区域。",
+          "兑换宠物装备的区域。",
+          "兑换通用物品的区域。",
+          "兑换枪械的区域。",
+          "兑换枪械配件的区域。",
+          "兑换弹药的区域。",
+          "兑换弹匣的区域。",
+          "兑换书籍的区域。",
+          "兑换生化插件的区域。",
+          "兑换轮胎的区域。",
+          "兑换引擎的区域。",
+          "兑换额外项目的区域。"
+        ],
+        "title": "虚空商店\n基础积分：<u_val:vm_score_base><global_val:vm_score_magic_display><global_val:vm_score_pure_display>",
+        "allow_cancel": true,
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_extra",
+    "effect": [
+      {
+        "run_eoc_selector": [
+          "EOC_VM_base_buy__vm_bucket",
+          "EOC_VM_base_buy__vm_autodoc_placer",
+          "EOC_VM_base_buy__vm_autodoc_couch_placer",
+          "EOC_VM_buy_score__pure_base",
+          "EOC_VM_buy_score__pure_magic"
+        ],
+        "names": [
+          "虚空桶 100bs",
+          "<item_name:vm_autodoc_placer> 8500bs",
+          "<item_name:vm_autodoc_couch_placer> 200bs",
+          "基础积分 1ps",
+          "魔法积分 1ps"
+        ],
+        "descriptions": [
+          "价格 100 基础积分\n如果你要购买液体，请提前站在可以承接液体的容器上，比如这个虚空桶！",
+          "价格 8500 基础积分\n<item_description:vm_autodoc_placer>",
+          "价格 200 基础积分\n<item_description:vm_autodoc_couch_placer>",
+          "价格 1 纯净积分",
+          "价格 1 纯净积分"
+        ],
+        "title": "虚空商店\n基础积分：<u_val:vm_score_base><global_val:vm_score_magic_display><global_val:vm_score_pure_display>",
+        "allow_cancel": true,
+        "hide_failing": true
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy_item",
+    "condition": { "expects_vars": [ "query_msg", "item_id", "price" ] },
+    "effect": [
+      { "math": [ "_max_count", "=", "max(floor(u_vm_score_base / _price), 0)" ] },
+      {
+        "set_string_var": { "context_val": "query_msg" },
+        "target_var": { "context_val": "query_msg" },
+        "parse_tags": true
+      },
+      { "math": [ "_count", "=", "num_input(_query_msg, 0)" ] },
+      {
+        "if": { "math": [ "_count", ">", "_max_count" ] },
+        "then": [ { "u_message": "无法兑换这个数量的物品！", "popup": true } ],
+        "else": [
+          {
+            "if": { "math": [ "_count", "<=", "0" ] },
+            "then": [ { "u_message": "你取消了购买。" } ],
+            "else": [
+              { "math": [ "u_vm_score_base", "-=", "_count * _price" ] },
+              { "map_spawn_item": { "context_val": "item_id" }, "count": { "context_val": "count" } },
+              { "u_message": "购买成功。" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy_item_mul",
+    "condition": { "expects_vars": [ "query_msg", "item_id", "price", "mul" ] },
+    "effect": [
+      { "math": [ "_max_count", "=", "max(floor(u_vm_score_base / _price), 0)" ] },
+      {
+        "set_string_var": { "context_val": "query_msg" },
+        "target_var": { "context_val": "query_msg" },
+        "parse_tags": true
+      },
+      { "math": [ "_count", "=", "num_input(_query_msg, 0)" ] },
+      {
+        "if": { "math": [ "_count", ">", "_max_count" ] },
+        "then": [ { "u_message": "无法兑换这个数量的物品！", "popup": true } ],
+        "else": [
+          {
+            "if": { "math": [ "_count", "<=", "0" ] },
+            "then": [ { "u_message": "你取消了购买。" } ],
+            "else": [
+              { "math": [ "u_vm_score_base", "-=", "_count * _price" ] },
+              { "map_spawn_item": { "context_val": "item_id" }, "count": { "math": [ "_count * _mul" ] } },
+              { "u_message": "购买成功。" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy_group",
+    "condition": { "expects_vars": [ "query_msg", "group_id", "price" ] },
+    "effect": [
+      { "math": [ "_max_count", "=", "max(floor(u_vm_score_base / _price), 0)" ] },
+      {
+        "set_string_var": { "context_val": "query_msg" },
+        "target_var": { "context_val": "query_msg" },
+        "parse_tags": true
+      },
+      { "math": [ "_count", "=", "num_input(_query_msg, 0)" ] },
+      {
+        "if": { "math": [ "_count", ">", "_max_count" ] },
+        "then": [ { "u_message": "无法兑换这个数量的物品组！", "popup": true } ],
+        "else": [
+          {
+            "if": { "math": [ "_count", "<=", "0" ] },
+            "then": [ { "u_message": "你取消了购买。" } ],
+            "else": [
+              {
+                "run_eoc_until": {
+                  "id": "EOC_VM_base_buy_group___",
+                  "effect": [
+                    {
+                      "if": { "math": [ "_count", "<=", "0" ] },
+                      "then": [ { "u_message": "你取消了购买。" } ],
+                      "else": [ { "map_spawn_item": { "context_val": "group_id" }, "use_item_group": true } ]
+                    }
+                  ]
+                },
+                "iteration": { "context_val": "count" }
+              },
+              { "math": [ "u_vm_score_base", "-=", "_count * _price" ] },
+              { "u_message": "购买成功。" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_magic_buy_item_mul",
+    "condition": { "expects_vars": [ "query_msg", "item_id", "price", "mul" ] },
+    "effect": [
+      { "math": [ "_max_count", "=", "max(floor(u_vm_score_magic / _price), 0)" ] },
+      {
+        "set_string_var": { "context_val": "query_msg" },
+        "target_var": { "context_val": "query_msg" },
+        "parse_tags": true
+      },
+      { "math": [ "_count", "=", "num_input(_query_msg, 0)" ] },
+      {
+        "if": { "math": [ "_count", ">", "_max_count" ] },
+        "then": [ { "u_message": "无法兑换这个数量的物品！", "popup": true } ],
+        "else": [
+          {
+            "if": { "math": [ "_count", "<=", "0" ] },
+            "then": [ { "u_message": "你取消了购买。" } ],
+            "else": [
+              { "math": [ "u_vm_score_magic", "-=", "_count * _price" ] },
+              { "map_spawn_item": { "context_val": "item_id" }, "count": { "math": [ "_count * _mul" ] } },
+              { "u_message": "购买成功。" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_buy_score_mul",
+    "condition": { "expects_vars": [ "query_msg", "score_source", "score_target", "price", "mul" ] },
+    "effect": [
+      { "math": [ "_max_count", "=", "max(floor(v_score_source / _price), 0)" ] },
+      {
+        "set_string_var": { "context_val": "query_msg" },
+        "target_var": { "context_val": "query_msg" },
+        "parse_tags": true
+      },
+      { "math": [ "_count", "=", "num_input(_query_msg, 0)" ] },
+      {
+        "if": { "math": [ "_count", ">", "_max_count" ] },
+        "then": [ { "u_message": "无法兑换这个数量的积分！", "popup": true } ],
+        "else": [
+          {
+            "if": { "math": [ "_count", "<=", "0" ] },
+            "then": [ { "u_message": "你取消了购买。" } ],
+            "else": [
+              { "math": [ "v_score_source", "-=", "_count * _price" ] },
+              { "math": [ "v_score_target", "+=", "_count * _mul" ] },
+              { "u_message": "购买成功。" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_buy_score__pure_base",
+    "condition": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_buy_score_mul",
+        "variables": {
+          "query_msg": "确认兑换数量（最多<context_val:max_count>）。",
+          "score_source": "u_vm_score_pure",
+          "score_target": "u_vm_score_base",
+          "price": "1",
+          "mul": "1"
+        }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_buy_score__pure_magic",
+    "condition": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_buy_score_mul",
+        "variables": {
+          "query_msg": "确认兑换数量（最多<context_val:max_count>）。",
+          "score_source": "u_vm_score_pure",
+          "score_target": "u_vm_score_magic",
+          "price": "1",
+          "mul": "1"
+        }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy__vm_bucket",
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_base_buy_item",
+        "variables": { "query_msg": "确认兑换数量（最多<context_val:max_count>）。", "item_id": "vm_bucket", "price": "100" }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy__vm_autodoc_placer",
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_base_buy_item",
+        "variables": {
+          "query_msg": "确认兑换数量（最多<context_val:max_count>）。",
+          "item_id": "vm_autodoc_placer",
+          "price": "8500"
+        }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy__vm_autodoc_couch_placer",
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_base_buy_item",
+        "variables": {
+          "query_msg": "确认兑换数量（最多<context_val:max_count>）。",
+          "item_id": "vm_autodoc_couch_placer",
+          "price": "200"
+        }
+      }
+    ]
+  }
+]

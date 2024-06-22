@@ -1,0 +1,674 @@
+[
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_holy_symbol",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "holy_symbol",
+    "name": { "str": "拟记忆/圣徽" },
+    "category": "artifacts",
+    "description": "一段拟记忆的结晶，看上去像一个圣徽。\n\n在拿起它之前 没有人知道它有什么效果。",
+    "material": [ "gold" ],
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_star_chalice",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "chalice",
+    "name": { "str": "拟记忆/星尘圣杯" },
+    "category": "artifacts",
+    "description": "一段拟记忆的结晶，外形是一个圣杯，闪烁着星尘的光芒。\n\n抱取星杯者会变得睿智而神秘，星尘的魔力会附着在他的身上。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "values": [
+            { "value": "INTELLIGENCE", "add": 4 },
+            { "value": "MAX_MANA", "multiply": 1.0 },
+            { "value": "REGEN_MANA", "multiply": 2.0 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_alterego_gluttony",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "chalice",
+    "name": { "str": "他人格/无飨宴" },
+    "category": "artifacts",
+    "description": "饥饿。饥饿。饥饿。唇舌期盼尝味，十指期盼抓扼。\n\n挥之不去的饥饿感使你强大，而享用美食短暂的安宁会使你虚弱但坚韧。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "ench_effects": [ { "effect": "vm_gluttony", "intensity": 1 } ],
+          "values": [
+            { "value": "METABOLISM", "add": 10 },
+            { "value": "HUNGER", "multiply": 19.0 },
+            { "value": "STOMACH_SIZE_MULTIPLIER", "multiply": 5 },
+            { "value": "CONSUME_TIME_MOD", "multiply": -0.9 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_alterego_ouroboros",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "chalice",
+    "name": { "str": "他人格/衔尾蛇" },
+    "category": "artifacts",
+    "description": "无限地进食，无限地再生。\n\n受伤会将血肉从你身上剥离，进食生自己的肉使你的伤口愈合。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "values": [
+            { "value": "METABOLISM", "add": 0.3 },
+            { "value": "HUNGER", "multiply": 0.2 },
+            { "value": "STOMACH_SIZE_MULTIPLIER", "multiply": 0.2 },
+            { "value": "CONSUME_TIME_MOD", "multiply": -0.05 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_alterego_silver_cup",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "chalice",
+    "name": { "str": "他人格/鲜花银杯" },
+    "category": "artifacts",
+    "description": "象征着堕落与淫欲的银杯，盛以血与美酒，雕刻以蔷薇。\n\n失控度越高，速度越快。\n增加你的魅力。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "ench_effects": [ { "effect": "vm_blood_speed", "intensity": 1 } ],
+          "values": [ { "value": "UGLINESS", "add": -66.6 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "COMESTIBLE",
+    "id": "vm_alterego_ouroboros__meat_scrap",
+    "comestible_type": "FOOD",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "meat_scrap",
+    "name": { "str": "衍生物/碎衔尾蛇肉" },
+    "description": "既是开始也是结束。",
+    "material": [ "flesh" ],
+    "weight": "27 g",
+    "volume": "25 ml",
+    "price": "5 USD",
+    "price_postapoc": "5 cent",
+    "spoils_in": "1 day",
+    "calories": 40,
+    "fun": 3,
+    "cooks_like": "meat_scrap_cooked",
+    "smoking_result": "meat_smoked"
+  },
+  {
+    "type": "COMESTIBLE",
+    "id": "vm_alterego_ouroboros__meat",
+    "comestible_type": "FOOD",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "meat",
+    "name": { "str": "衍生物/衔尾蛇肉" },
+    "description": "既是蛇口也是蛇尾。",
+    "material": [ "flesh" ],
+    "weight": "275 g",
+    "volume": "250 ml",
+    "price": "5 USD",
+    "price_postapoc": "50 cent",
+    "spoils_in": "1 day",
+    "calories": 402,
+    "fun": 3,
+    "cooks_like": "meat_cooked",
+    "smoking_result": "meat_smoked"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_water_drop",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "art_sphere",
+    "name": { "str": "拟记忆/水珠" },
+    "category": "artifacts",
+    "description": "一滴如同记忆般的水珠，你可以透过它看到更加清晰世界。\n\n使你的视野变得辽阔，射击变得精准。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "gun", "multiply": 0.4 } ],
+          "values": [
+            { "value": "OVERMAP_SIGHT", "add": 1 },
+            { "value": "RANGE", "multiply": 0.5 },
+            { "value": "SHOUT_NOISE", "multiply": -0.5 },
+            { "value": "RECOIL_MODIFIER", "multiply": -0.5 },
+            { "value": "WEAPON_DISPERSION", "multiply": -0.5 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_security_card",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "scorecard",
+    "name": { "str": "拟记忆/“纳米安全”会员卡" },
+    "category": "artifacts",
+    "description": "一张写有“纳米安全”的卡片，来自于某个富人的记忆。\n\n止血，疗伤，急救——只要你有积分。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "ench_effects": [ { "effect": "vm_nano_helper", "intensity": 1 } ],
+          "values": [ { "value": "PAIN", "multiply": -0.2 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_punch",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "boxing_gloves",
+    "name": { "str": "拟记忆/拳套" },
+    "category": "artifacts",
+    "description": "当注视着这对拳套时，它变得越来越大。这是这段记忆主人最后的记忆碎片。\n\n你不攻击的每一秒都再为下一次爆发积攒力量。\n略微增加你的力量。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "ench_effects": [ { "effect": "vm_boxing_king", "intensity": 1 } ],
+          "values": [ { "value": "STRENGTH", "add": 1 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_sharp",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "nm_teeth",
+    "name": { "str": "拟记忆/獠牙" },
+    "category": "artifacts",
+    "description": "一块锋利的记忆所留下的残渣。\n\n近战伤害和远程伤害提升。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "values": [ { "value": "MELEE_DAMAGE", "multiply": 0.3 }, { "value": "RANGED_DAMAGE", "multiply": 0.5 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_gun_medal",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "gold_medal",
+    "name": { "str": "拟记忆/射击冠军奖章" },
+    "category": "artifacts",
+    "description": "曾经任何挂上它的人都像个神枪手，现在任何带上它的人都变成了神枪手。\n\n使你的枪法提升，听力下降。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [
+            { "value": "gun", "add": 8 },
+            { "value": "pistol", "add": 7 },
+            { "value": "launcher", "add": 5 },
+            { "value": "rifle", "add": 7 },
+            { "value": "smg", "add": 6 }
+          ],
+          "values": [ { "value": "HEARING_MULT", "add": -0.5 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_brain_chip",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "null",
+    "name": { "str": "拟记忆/脑内芯片" },
+    "category": "artifacts",
+    "description": "一个看不见的芯片，因为它在脑内。\n\n使你的计算机技能和智力大幅提升。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "computer", "multiply": 1.28 } ],
+          "values": [ { "value": "INTELLIGENCE", "multiply": 0.6 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_forbidden_tile",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "brick",
+    "name": { "str": "拟记忆/禁城瓦片" },
+    "category": "artifacts",
+    "description": "虽然它只是一块记忆拟造的瓦片，但它曾经目睹了一场绝世之战。\n\n近战技能和剑术提升，并略微提升力量。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "melee", "add": 5 }, { "value": "cutting", "add": 7 } ],
+          "values": [ { "value": "STRENGTH", "add": 1 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_zombie_slayer",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "wallet_photo",
+    "name": { "str": "拟记忆/丧尸杀手的照片" },
+    "category": "artifacts",
+    "description": "家人被丧尸杀死后，被千年怪寄生的丧尸杀手成为了猎杀死者的死者。而这是他和家人生前的合照。\n\n攻击丧尸时获得力量加成，杀死丧尸恢复你的伤势。\n\n“这也是末法之世的一个侧面。”",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "ench_effects": [ { "effect": "vm_zombie_slayer", "intensity": 1 } ],
+          "skills": [ { "value": "melee", "add": 1 } ],
+          "values": [ { "value": "STRENGTH", "add": 1 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_glass_heart",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "glass_plate",
+    "name": { "str": "拟记忆/琉璃心脏" },
+    "category": "artifacts",
+    "description": "如同玻璃一般通透的意志使这颗心脏的主人在各种险境中存活，而他的敌人对他的记忆塑造了这一块琉璃。\n\n减少疼痛的获得，降低疼痛对你的影响，提高运动能力和耐力水平。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "swimming", "multiply": 0.6 } ],
+          "values": [
+            { "value": "MAX_STAMINA", "multiply": 1.0 },
+            { "value": "PAIN", "multiply": -0.8 },
+            { "value": "PAIN_PENALTY_MOD_STR", "multiply": -0.8 },
+            { "value": "PAIN_PENALTY_MOD_DEX", "multiply": -0.8 },
+            { "value": "PAIN_PENALTY_MOD_INT", "multiply": -0.8 },
+            { "value": "PAIN_PENALTY_MOD_PER", "multiply": -0.8 },
+            { "value": "PAIN_PENALTY_MOD_SPEED", "multiply": -0.8 },
+            { "value": "PAIN_REMOVE", "multiply": 1.0 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_steel_body",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "steel_chunk",
+    "name": { "str": "拟记忆/钢铁身躯" },
+    "category": "artifacts",
+    "description": "如同钢铁一般的强健的体魄使这具身躯的主人能够和半神赛跑，他对自我体魄的自信构成了这一块钢铁。\n\n增加生命上限和速度，获得击倒抵抗并增强击退抵抗，提高运动等级。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "swimming", "multiply": 0.6 } ],
+          "values": [
+            { "value": "SPEED", "multiply": 0.18 },
+            { "value": "MAX_HP", "multiply": 0.6 },
+            { "value": "KNOCKBACK_RESIST", "add": 80 },
+            { "value": "KNOCKDOWN_RESIST", "multiply": 100 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_jerrycan",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "jerrycan",
+    "name": { "str": "拟记忆/润滑油罐" },
+    "category": "artifacts",
+    "description": "这不是一个平凡的油罐，它装着的油是润滑油。\n\n免疫抓握，略微增加闪避率。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "ench_effects": [ { "effect": "vm_jerrycan", "intensity": 1 } ],
+          "values": [ { "value": "DODGE_CHANCE", "add": 0.2 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_cat_star",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "cell_phone",
+    "name": { "str": "拟记忆/喵星联络器" },
+    "category": "artifacts",
+    "description": "伪装成老式手机，实际是来自喵星的潜伏者和喵星通讯的工具。幸好不是在这个世界发生的事。\n\n获得额外攻击机会，略微增加闪避率。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "mutations": [ "vm_trait_cat_star" ],
+          "values": [ { "value": "DODGE_CHANCE", "add": 0.05 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_lightning_rod",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "antenna",
+    "name": { "str": "拟记忆/避雷针" },
+    "category": "artifacts",
+    "description": "它曾经并不能使你避开雷，只能把雷引到你身上——但是现在能了。\n\n对电的防御大幅提升，同时略微提升对火，酸和生化的防御。\n\n在某些世界，它也叫雷霆之杖。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "values": [ { "value": "ARMOR_ELEC", "add": -20 }, { "value": "ARMOR_HEAT", "add": -1 }, { "value": "ARMOR_BIO", "add": -1 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_potato",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "TDI",
+    "name": { "str": "拟记忆/土豆发射器" },
+    "category": "artifacts",
+    "description": "一段精密的构造物的记忆，曾被用来发射土豆和其它作物，凝聚着一个世界技术的核心。\n\n砸击时，有概率获得一个土豆，也有小概率获得一些别的东西。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [ { "has": "HELD", "condition": "ALWAYS", "ench_effects": [ { "effect": "vm_potato_finder", "intensity": 1 } ] } ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_vector",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "TDI",
+    "name": { "str": "拟记忆/隐秘手提箱" },
+    "category": "artifacts",
+    "description": "一个正好放的下一把枪的手提箱，外形普通，被杀手用来隐秘的运输枪械。\n\n制作物品时，得到 VECTOR .45 冲锋枪 或 M110A1 狙击步枪 中的随机一把。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [ { "has": "HELD", "condition": "ALWAYS", "ench_effects": [ { "effect": "vm_vector_lover", "intensity": 1 } ] } ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_jian",
+    "symbol": "*",
+    "color": "light_gray",
+    "looks_like": "jian",
+    "name": { "str": "拟记忆/中式剑" },
+    "category": "artifacts",
+    "description": "一把如同记忆的剑，曾拥有着分子级别的锋利。\n\n增加近战伤害和力量。\n提高近战技能。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "melee", "add": 2 } ],
+          "values": [ { "value": "MELEE_DAMAGE", "multiply": 0.1 }, { "value": "STRENGTH", "add": 2 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_dumbbell",
+    "symbol": "*",
+    "color": "light_gray",
+    "name": { "str": "拟记忆/热血哑铃" },
+    "category": "artifacts",
+    "description": "承重的哑铃，无数个人用它锻炼出了强健的体魄。\n\n提高力量，生命上限和负重，并提高你的运动技能等级。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "swimming", "add": 3 } ],
+          "values": [
+            { "value": "STRENGTH", "add": 3 },
+            { "value": "CARRY_WEIGHT", "multiply": 2.0 },
+            { "value": "MAX_HP", "multiply": 0.5 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_match",
+    "symbol": "*",
+    "looks_like": "match",
+    "color": "light_gray",
+    "name": { "str": "拟记忆/火柴" },
+    "category": "artifacts",
+    "description": "埋在雪中的火柴，已经烧焦了。寄托着一个熄灭的幻想。\n\n濒死时获得一次紧急治疗，那之后失去这个神器。\n降低你对寒冷的抗性，降低你对温度的适应能力。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [ { "value": "swimming", "add": 3 } ],
+          "ench_effects": [ { "effect": "vm_match_reborn", "intensity": 1 } ],
+          "values": [
+            { "value": "ARMOR_COLD", "add": 5 },
+            { "value": "CLIMATE_CONTROL_HEAT", "add": -15 },
+            { "value": "CLIMATE_CONTROL_CHILL", "add": -15 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_book_binder",
+    "symbol": "*",
+    "looks_like": "book_binder",
+    "color": "light_gray",
+    "name": { "str": "拟记忆/无限活页夹" },
+    "category": "artifacts",
+    "description": "一个记忆构成的活页夹，只有半厘米厚，却夹有着超过四百万张纸。\n\n提高你的大多数学科技能，并略微提高你的智力。",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "skills": [
+            { "value": "computer", "add": 3 },
+            { "value": "chemistry", "add": 5 },
+            { "value": "survival", "add": 3 },
+            { "value": "electronics", "add": 5 },
+            { "value": "mechanics", "add": 5 },
+            { "value": "firstaid", "add": 3 },
+            { "value": "speech", "add": 5 }
+          ],
+          "values": [ { "value": "INTELLIGENCE", "add": 2 } ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_battery",
+    "symbol": "*",
+    "looks_like": "battery",
+    "color": "light_gray",
+    "name": { "str": "拟记忆/电池电池" },
+    "category": "artifacts",
+    "description": "电池的电池，让你充满活力！\n\n提高200kJ生化能量储存，并随时间恢复生化能量（已有储能cbm）。\n提高你的速度",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "values": [
+            { "value": "BIONIC_POWER", "add": 200000000 },
+            { "value": "POWER_TRICKLE", "add": 200 },
+            { "value": "SPEED", "multiply": 0.2 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  },
+  {
+    "type": "GENERIC",
+    "id": "vm_quasi_memory_gear",
+    "symbol": "*",
+    "color": "light_gray",
+    "name": { "str": "拟记忆/齿轮齿轮" },
+    "category": "artifacts",
+    "description": "齿轮的齿轮，支撑起了它所在整个世界。“土豆发射器”就是这个世界的尖端造物之一。\n\n大幅提高耐力上限和耐力恢复速度\n提高你的速度",
+    "material": [ "gold" ],
+    "relic_data": {
+      "passive_effects": [
+        {
+          "has": "HELD",
+          "condition": "ALWAYS",
+          "values": [
+            { "value": "MAX_STAMINA", "multiply": 2.0 },
+            { "value": "REGEN_MANA", "multiply": 1.0 },
+            { "value": "SPEED", "multiply": 0.15 }
+          ]
+        }
+      ]
+    },
+    "weight": "10 g",
+    "volume": "10 ml"
+  }
+]

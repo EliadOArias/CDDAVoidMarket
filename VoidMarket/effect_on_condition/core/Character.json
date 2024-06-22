@@ -1,0 +1,352 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_avartar_new",
+    "eoc_type": "EVENT",
+    "required_event": "game_avatar_new",
+    "effect": [ { "run_eocs": [ "EOC_VM_scoreProvider_init", "EOC_VM_refesh_melee_attack" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_kill_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_kills_monster",
+    "effect": [ { "run_eocs": [ "EOC_VM_scoreProvider_base", "EOC_VM_quasi_memory_zombie_slayer__kill" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_cast_spell_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_casts_spell",
+    "effect": [ { "run_eocs": [ "EOC_VM_scoreProvider_magic" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_moves_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "avatar_moves",
+    "effect": [ { "run_eocs": [ "EOC_VM_scoreProvider_pure" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_damage_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_takes_damage",
+    "effect": [ { "run_eocs": [ "EOC_VM_alterego_ouroboros__on_damage" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_eat_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_eats_item",
+    "effect": [ { "run_eocs": [ "EOC_VM_alterego_ouroboros__on_eat" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_300_turn_event_registry",
+    "recurrence": 300,
+    "effect": [ { "run_eocs": [ "EOC_VM_quasi_memory_security_card__update" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_10_turn_event_registry",
+    "recurrence": 10,
+    "effect": [ { "run_eocs": [ "EOC_VM_quasi_memory_security_card__dec_bleed" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_melee_attack_monster_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_melee_attacks_monster",
+    "effect": [ { "run_eocs": [ "EOC_VM_refesh_melee_attack", "EOC_VM_quasi_memory_zombie_slayer__attack" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_melee_attack_character_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_melee_attacks_character",
+    "effect": [ { "run_eocs": [ "EOC_VM_refesh_melee_attack" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_smash_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_smashes_tile",
+    "effect": [ { "run_eocs": [ "EOC_VM_quasi_memory_potato__spawn" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_finished_activity_event_registry",
+    "eoc_type": "EVENT",
+    "required_event": "character_finished_activity",
+    "effect": [ { "run_eocs": [ "EOC_VM_quasi_memory_vector_lover__spawn" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_on_death_event_registry",
+    "eoc_type": "PREVENT_DEATH",
+    "effect": [ { "run_eocs": [ "EOC_VM_quasi_memory_match__reborn" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_alterego_ouroboros__on_damage",
+    "condition": { "u_has_item": "vm_alterego_ouroboros" },
+    "effect": [
+      { "math": [ "_i", "=", "floor(_damage / 10)" ] },
+      { "math": [ "_j", "=", "_damage % 10" ] },
+      {
+        "if": { "math": [ "_i", ">", "0" ] },
+        "then": [
+          {
+            "if": { "math": [ "_j", ">", "0" ] },
+            "then": [ { "u_message": "<context_val:i>块肉块和一些碎肉从你的身上掉了下来。" } ],
+            "else": [ { "u_message": "<context_val:i>块肉块从你的身上掉了下来。" } ]
+          }
+        ],
+        "else": [ { "u_message": "一些碎肉从你的身上掉了下来。" } ]
+      },
+      { "map_spawn_item": "vm_alterego_ouroboros__meat", "count": { "math": [ "_i" ] } },
+      { "map_spawn_item": "vm_alterego_ouroboros__meat_scrap", "count": { "math": [ "_j" ] } }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_alterego_ouroboros__on_eat",
+    "condition": { "u_has_item": "vm_alterego_ouroboros" },
+    "effect": [
+      {
+        "if": { "compare_string": [ { "context_val": "itype" }, "vm_alterego_ouroboros__meat" ] },
+        "then": [
+          { "run_eoc_with": "EOC_VM_try_heal", "variables": { "heal_amout": "10" } },
+          { "u_message": "进食血肉使你的伤口愈合了。" }
+        ]
+      },
+      {
+        "if": { "compare_string": [ { "context_val": "itype" }, "vm_alterego_ouroboros__meat_scrap" ] },
+        "then": [
+          { "run_eoc_with": "EOC_VM_try_heal", "variables": { "heal_amout": "1" } },
+          { "u_message": "进食少量血肉使你的伤口略微愈合了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_security_card__update",
+    "condition": { "u_has_effect": "vm_nano_helper" },
+    "effect": [
+      { "u_message": "<color_green>您的纳米医疗无人机正在为您进行例行检查！</color>" },
+      {
+        "math": [
+          "_try_heal",
+          "=",
+          "floor((u_hp_max('torso')+u_hp_max('head')+u_hp_max('leg_l')+u_hp_max('leg_r')+u_hp_max('arm_l')+u_hp_max('arm_r') - u_hp('ALL_MAJOR')) * 0.6)"
+        ]
+      },
+      { "math": [ "_cost", "=", "_try_heal * 20" ] },
+      {
+        "if": { "and": [ { "math": [ "_cost", ">", "0" ] }, { "math": [ "u_vm_score_pure", ">", "_cost" ] } ] },
+        "then": [
+          { "run_eoc_with": "EOC_VM_try_heal", "variables": { "heal_amout": { "context_val": "try_heal" } } },
+          {
+            "u_message": "<color_green>疗程：治疗伤口 进行完毕！收取费用<context_val:cost>点纯净积分！</color>"
+          },
+          { "math": [ "u_vm_score_pure", "-=", "_cost" ] }
+        ],
+        "else": [ { "u_message": "<color_yellow>疗程：治疗伤口 进行失败！</color>" } ]
+      },
+      { "math": [ "_try_heal", "=", "floor(u_pain() * 0.6)" ] },
+      { "math": [ "_cost", "=", "_try_heal * 20" ] },
+      {
+        "if": { "and": [ { "math": [ "_cost", ">", "0" ] }, { "math": [ "u_vm_score_pure", ">", "_cost" ] } ] },
+        "then": [
+          { "math": [ "u_pain()", "-=", "_try_heal" ] },
+          {
+            "u_message": "<color_green>疗程：止痛 进行完毕！收取费用<context_val:cost>点纯净积分！</color>"
+          },
+          { "math": [ "u_vm_score_pure", "-=", "_cost" ] }
+        ],
+        "else": [ { "u_message": "<color_yellow>疗程：止痛 进行失败！</color>" } ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_security_card__dec_bleed",
+    "condition": { "u_has_effect": "vm_nano_helper" },
+    "effect": [
+      {
+        "foreach": "array",
+        "target": [ "torso", "head", "leg_l", "leg_r", "arm_l", "arm_r" ],
+        "var": { "context_val": "bp" },
+        "effect": [
+          { "math": [ "_try_dec", "=", "- u_effect_intensity('bleed', 'bodypart': _bp) * 30" ] },
+          { "math": [ "_cost", "=", "- floor(_try_dec * rng(0.2, 0.4))" ] },
+          {
+            "if": { "and": [ { "math": [ "_try_dec", "<", "0" ] }, { "math": [ "u_vm_score_pure", ">", "_cost" ] } ] },
+            "then": [
+              { "u_add_effect": "bleed", "target_part": { "context_val": "bp" }, "duration": { "context_val": "try_dec" } },
+              {
+                "u_message": "<color_green>纳米无人机在为你止血！收钱费用<context_val:cost>点纯净积分！</color>"
+              },
+              { "math": [ "u_vm_score_pure", "-=", "_cost" ] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_refesh_melee_attack",
+    "effect": [ { "math": [ "u_prev_melee_attack_time", "=", "time('now')" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_zombie_slayer__attack",
+    "condition": { "u_has_effect": "vm_zombie_slayer" },
+    "effect": [
+      {
+        "if": {
+          "or": [
+            { "compare_string": [ { "mutator": "mon_faction", "mtype_id": { "context_val": "victim_type" } }, "zombie" ] },
+            { "npc_has_species": "ZOMBIE" }
+          ]
+        },
+        "then": [
+          { "u_add_effect": "vm_zombie_slayer__anger", "duration": 5 },
+          { "npc_make_sound": "咕哇！", "volume": 30, "type": "speech" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_zombie_slayer__kill",
+    "condition": { "u_has_effect": "vm_zombie_slayer" },
+    "effect": [
+      {
+        "if": {
+          "or": [
+            { "compare_string": [ { "mutator": "mon_faction", "mtype_id": { "context_val": "victim_type" } }, "zombie" ] },
+            { "npc_has_species": "ZOMBIE" }
+          ]
+        },
+        "then": [
+          { "run_eoc_with": "EOC_VM_try_heal", "variables": { "heal_amout": { "context_val": "exp" } } },
+          { "npc_make_sound": "永别了！", "volume": 30, "type": "speech" },
+          { "npc_cast_spell": { "id": "vm_zombie_slayer__explosion" } }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_potato__spawn",
+    "condition": { "u_has_effect": "vm_potato_finder" },
+    "effect": [
+      {
+        "if": { "math": [ "rand(3)", "==", "0" ] },
+        "then": [ { "map_spawn_item": "potato" }, { "u_message": "你发现了一个土豆！" } ],
+        "else": [
+          {
+            "if": { "math": [ "rand(15)", "==", "0" ] },
+            "then": [ { "map_spawn_item": "memory_card_unread" }, { "u_message": "你发现了一张存储卡！" } ]
+          },
+          {
+            "if": { "math": [ "rand(8)", "==", "0" ] },
+            "then": [
+              { "math": [ "_score_gain", "=", "10 + rand(90)" ] },
+              { "math": [ "u_vm_score_base", "+=", "_score_gain" ] },
+              { "math": [ "u_vm_score_sum", "+=", "_score_gain" ] },
+              { "u_message": "你发现了<context_val:score_gain>点基础积分！" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_vector_lover__spawn",
+    "condition": { "u_has_effect": "vm_vector_lover" },
+    "effect": [
+      {
+        "if": { "and": [ { "math": [ "_canceled" ] }, { "compare_string": [ { "context_val": "activity" }, "ACT_CRAFT" ] } ] },
+        "then": [
+          {
+            "if": { "math": [ "rand(2)", "==", "0" ] },
+            "then": [ { "map_spawn_item": "m110a1" }, { "u_message": "你用边角料制作了一把M110A1 狙击步枪！" } ],
+            "else": [ { "map_spawn_item": "TDI" }, { "u_message": "你用边角料制作了一把Vector .45 突击步枪！" } ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_quasi_memory_match__reborn",
+    "condition": { "u_has_effect": "vm_match_reborn" },
+    "effect": [
+      "u_prevent_death",
+      { "u_message": "<color_light_green>火柴消失了……你被逝去的幻影推回到了现世。</color>" },
+      { "u_consume_item": "vm_quasi_memory_match", "count": 1 },
+      { "u_lose_effect": "staggered" },
+      { "u_lose_effect": "grabbed" },
+      { "u_location_variable": { "context_val": "loc" }, "max_radius": 5, "passable_only": true },
+      { "u_teleport": { "context_val": "loc" } },
+      { "math": [ "u_hp('ALL_MINOR')", "+=", "1000" ] },
+      { "math": [ "u_pain()", "=", "0" ] },
+      { "math": [ "u_val('stamina')", "+=", "5000" ] },
+      { "run_eoc_with": "EOC_VM_try_heal", "variables": { "heal_amout": "300" } }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_try_heal",
+    "condition": { "expects_vars": [ "heal_amout" ] },
+    "effect": {
+      "run_eoc_until": {
+        "id": "EOC_VM_try_heal__do",
+        "effect": [
+          {
+            "weighted_list_eocs": [
+              [
+                { "id": "EOC_VM_try_heal__do__torso", "effect": { "math": [ "u_hp('torso')", "++" ] } },
+                { "math": [ "u_hp_max('torso') - u_hp('torso')" ] }
+              ],
+              [
+                { "id": "EOC_VM_try_heal__do__head", "effect": { "math": [ "u_hp('head')", "++" ] } },
+                { "math": [ "u_hp_max('head') - u_hp('head')" ] }
+              ],
+              [
+                { "id": "EOC_VM_try_heal__do__leg_l", "effect": { "math": [ "u_hp('leg_l')", "++" ] } },
+                { "math": [ "u_hp_max('leg_l') - u_hp('leg_l')" ] }
+              ],
+              [
+                { "id": "EOC_VM_try_heal__do__leg_r", "effect": { "math": [ "u_hp('leg_r')", "++" ] } },
+                { "math": [ "u_hp_max('leg_r') - u_hp('leg_r')" ] }
+              ],
+              [
+                { "id": "EOC_VM_try_heal__do__arm_l", "effect": { "math": [ "u_hp('arm_l')", "++" ] } },
+                { "math": [ "u_hp_max('arm_l') - u_hp('arm_l')" ] }
+              ],
+              [
+                { "id": "EOC_VM_try_heal__do__arm_r", "effect": { "math": [ "u_hp('arm_r')", "++" ] } },
+                { "math": [ "u_hp_max('arm_r') - u_hp('arm_r')" ] }
+              ]
+            ]
+          }
+        ]
+      },
+      "iteration": { "context_val": "heal_amout" },
+      "condition": {
+        "math": [
+          "u_hp('ALL_MAJOR')",
+          "<",
+          "u_hp_max('torso')+u_hp_max('head')+u_hp_max('leg_l')+u_hp_max('leg_r')+u_hp_max('arm_l')+u_hp_max('arm_r')"
+        ]
+      }
+    }
+  }
+]

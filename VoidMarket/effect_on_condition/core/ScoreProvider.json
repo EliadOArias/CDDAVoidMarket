@@ -1,0 +1,109 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_scoreProvider_init",
+    "effect": [
+      { "math": [ "u_vm_score_base", "=", "0" ] },
+      { "math": [ "u_vm_score_magic", "=", "0" ] },
+      { "math": [ "u_vm_score_pure", "=", "0" ] },
+      { "math": [ "u_vm_score_sum", "=", "0" ] },
+      { "math": [ "vm_iso_prev_level", "=", "0" ] },
+      { "math": [ "u_vm_score_pure_stored", "=", "0" ] },
+      {
+        "u_message": "你能感觉到你被某种存在所眷顾………\n你获得沟通虚空的权限。你的世界所存在的“力量”越繁多，虚空能为你提供的奖励就越多。",
+        "popup": true
+      },
+      {
+        "if": { "math": [ "mod_load_order('magiclysm')", "!=", "-1" ] },
+        "then": [
+          { "math": [ "u_vm_score_magic", "+=", "100" ] },
+          { "math": [ "u_vm_score_sum", "+=", "100" ] },
+          {
+            "u_message": "（兼容模组 大魔法）由于这个世界无处不在的魔力，虚空可以为你提供更多的力量。施法，释放魔力，取得更多的奖励！\n你获得了100魔法积分！",
+            "popup": true
+          }
+        ]
+      },
+      {
+        "if": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
+        "then": [
+          { "math": [ "u_vm_score_pure", "+=", "100" ] },
+          { "math": [ "u_vm_score_sum", "+=", "100" ] },
+          {
+            "u_message": "（兼容模组 隔离协议）虚空不吝于给予挑战者奖励。探索，战斗，取得更多的奖励！\n你获得了100纯净积分！",
+            "popup": true
+          }
+        ]
+      },
+      {
+        "if": { "math": [ "mod_load_order('aftershock')", "!=", "-1" ] },
+        "then": [
+          { "math": [ "u_vm_score_base", "+=", "100" ] },
+          { "math": [ "u_vm_score_sum", "+=", "100" ] },
+          {
+            "u_message": "（兼容模组 余波未尽）由于异星存在的科技，虚空可以给你提供更多的力量。\n你获得了100基础积分！",
+            "popup": true
+          }
+        ]
+      },
+      { "math": [ "u_spell_level('vm_call')", "=", "0" ] }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_scoreProvider_base",
+    "effect": [
+      { "math": [ "_score_gain", "=", "floor(_exp * 2.5 * rng(0.8, 1.2))" ] },
+      { "math": [ "u_vm_score_base", "+=", "_score_gain" ] },
+      { "math": [ "u_vm_score_magic", "+=", "0" ] },
+      { "math": [ "u_vm_score_sum", "+=", "_score_gain" ] },
+      { "u_message": "你获得了<context_val:score_gain>点基础积分！" }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_scoreProvider_magic",
+    "effect": [
+      { "math": [ "_score_gain", "=", "floor(_cost * log(max(_difficulty + 2, 1)) * rng(0.8, 1.2) * 0.05)" ] },
+      {
+        "if": { "math": [ "_score_gain", ">", "0" ] },
+        "then": [
+          { "math": [ "u_vm_score_magic", "+=", "_score_gain" ] },
+          { "math": [ "u_vm_score_sum", "+=", "_score_gain" ] },
+          { "u_message": "你获得了<context_val:score_gain>点魔法积分！" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_scoreProvider_pure",
+    "effect": [
+      {
+        "if": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
+        "then": [
+          {
+            "if": { "math": [ "ISO_CURRENT_LEVEL", ">", "vm_iso_prev_level" ] },
+            "then": [
+              {
+                "math": [
+                  "_score_gain",
+                  "=",
+                  "floor((ISO_CURRENT_LEVEL - vm_iso_prev_level) * 1000 * log(max(ISO_CURRENT_LEVEL + 2, 1))) + u_vm_score_pure_stored"
+                ]
+              },
+              { "math": [ "u_vm_score_pure", "+=", "_score_gain" ] },
+              { "math": [ "u_vm_score_pure_stored", "=", "0" ] },
+              { "math": [ "u_vm_score_sum", "+=", "_score_gain" ] },
+              {
+                "u_message": "虚空奖励了勇敢的挑战者（隔离协议）。当前层数：<global_val:ISO_CURRENT_LEVEL>。你获得了<context_val:score_gain>纯净积分。"
+              },
+              { "run_eocs": [ "EOC_VM_iso_rogue" ] }
+            ]
+          },
+          { "math": [ "vm_iso_prev_level", "=", "ISO_CURRENT_LEVEL" ] }
+        ]
+      }
+    ]
+  }
+]

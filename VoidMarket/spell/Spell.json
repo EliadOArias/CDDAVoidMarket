@@ -1,0 +1,36 @@
+[
+  {
+    "id": "vm_call",
+    "type": "SPELL",
+    "name": "沟通虚空",
+    "description": "沟通虚空",
+    "effect": "effect_on_condition",
+    "effect_str": "EOC_VM_base",
+    "shape": "blast",
+    "valid_targets": [ "self" ],
+    "flags": [ "NO_LEGS", "NO_HANDS", "NO_FAIL", "NO_PROJECTILE" ],
+    "max_level": { "math": [ "max(log(u_vm_score_sum * 0.01),0)" ] },
+    "spell_class": "NONE",
+    "base_casting_time": 1000,
+    "casting_time_increment": -100,
+    "final_casting_time": 100,
+    "difficulty": 0,
+    "message": "你沟通了虚空。"
+  },
+  {
+    "type": "SPELL",
+    "id": "vm_zombie_slayer__explosion",
+    "name": { "str": "丧尸爆炸" },
+    "description": "撒由那拉！",
+    "valid_targets": [ "self", "ground" ],
+    "min_range": 1,
+    "max_range": 1,
+    "min_damage": 100,
+    "max_damage": 100,
+    "damage_type": "bash",
+    "min_aoe": 2,
+    "max_aoe": 2,
+    "shape": "blast",
+    "effect": "bash"
+  }
+]
