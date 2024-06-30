@@ -5,7 +5,7 @@
     "name": "沟通虚空",
     "description": "沟通虚空",
     "effect": "effect_on_condition",
-    "effect_str": "EOC_VM_base",
+    "effect_str": "EOC_VM_all",
     "shape": "blast",
     "valid_targets": [ "self" ],
     "flags": [ "NO_LEGS", "NO_HANDS", "NO_FAIL", "NO_PROJECTILE" ],

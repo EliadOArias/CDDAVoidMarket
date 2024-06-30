@@ -1,112 +1,56 @@
 [
   {
     "type": "effect_on_condition",
-    "id": "EOC_VM_base",
-    "condition": "u_is_avatar",
+    "id": "EOC_VM_mod_check",
     "effect": [
       {
-        "run_eocs": [
+        "if": { "math": [ "mod_load_order('magiclysm')", "!=", "-1" ] },
+        "then": [
           {
-            "id": "EOC_VM_mod_check",
-            "effect": [
-              {
-                "if": { "math": [ "mod_load_order('magiclysm')", "!=", "-1" ] },
-                "then": [
-                  {
-                    "set_string_var": "\n魔法积分：<u_val:vm_score_magic>",
-                    "target_var": { "global_val": "vm_score_magic_display" }
-                  }
-                ]
-              },
-              {
-                "if": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
-                "then": [
-                  { "set_string_var": "\n纯净积分：<u_val:vm_score_pure>", "target_var": { "global_val": "vm_score_pure_display" } }
-                ]
-              }
-            ]
+            "set_string_var": "\n魔法积分：<u_val:vm_score_magic>",
+            "target_var": { "global_val": "vm_score_magic_display" }
           }
         ]
       },
       {
-        "run_eoc_selector": [
-          "EOC_VM_base_comestible",
-          "EOC_VM_base_tool",
-          "EOC_VM_base_tool_armor",
-          "EOC_VM_base_armor",
-          "EOC_VM_base_pet_armor",
-          "EOC_VM_base_generic",
-          "EOC_VM_base_gun",
-          "EOC_VM_base_gun_mod",
-          "EOC_VM_base_ammo",
-          "EOC_VM_base_magazine",
-          "EOC_VM_base_book",
-          "EOC_VM_base_bionic_item",
-          "EOC_VM_base_wheel",
-          "EOC_VM_base_engine",
-          "EOC_VM_base_extra"
-        ],
-        "names": [
-          "可食用物区",
-          "工具区",
-          "工具装备区",
-          "装备区",
-          "宠物装备区",
-          "通用区",
-          "枪械区",
-          "枪械配件区",
-          "弹药区",
-          "弹匣区",
-          "书籍区",
-          "生化插件区",
-          "轮胎区",
-          "引擎区",
-          "额外区"
-        ],
-        "descriptions": [
-          "兑换可食用物的区域。",
-          "兑换工具的区域。",
-          "兑换工具装备的区域。",
-          "兑换装备的区域。",
-          "兑换宠物装备的区域。",
-          "兑换通用物品的区域。",
-          "兑换枪械的区域。",
-          "兑换枪械配件的区域。",
-          "兑换弹药的区域。",
-          "兑换弹匣的区域。",
-          "兑换书籍的区域。",
-          "兑换生化插件的区域。",
-          "兑换轮胎的区域。",
-          "兑换引擎的区域。",
-          "兑换额外项目的区域。"
-        ],
-        "title": "虚空商店\n基础积分：<u_val:vm_score_base><global_val:vm_score_magic_display><global_val:vm_score_pure_display>",
-        "allow_cancel": true,
-        "hide_failing": true
+        "if": { "math": [ "mod_load_order('Isolation_Protocol')", "!=", "-1" ] },
+        "then": [
+          { "set_string_var": "\n纯净积分：<u_val:vm_score_pure>", "target_var": { "global_val": "vm_score_pure_display" } }
+        ]
       }
     ]
   },
   {
     "type": "effect_on_condition",
-    "id": "EOC_VM_base_extra",
+    "id": "EOC_VM_none",
+    "effect": [
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_all_extra",
     "effect": [
       {
         "run_eoc_selector": [
-          "EOC_VM_base_buy__vm_bucket",
+          "EOC_VM_base_buy__vm_toilet_placer",
+          "EOC_VM_base_buy__vm_bathtub_placer",
           "EOC_VM_base_buy__vm_autodoc_placer",
           "EOC_VM_base_buy__vm_autodoc_couch_placer",
           "EOC_VM_buy_score__pure_base",
           "EOC_VM_buy_score__pure_magic"
         ],
         "names": [
-          "虚空桶 100bs",
+          "<item_name:vm_toilet_placer> 100bs",
+          "<item_name:vm_bathtub_placer> 200bs",
           "<item_name:vm_autodoc_placer> 8500bs",
           "<item_name:vm_autodoc_couch_placer> 200bs",
           "基础积分 1ps",
           "魔法积分 1ps"
         ],
         "descriptions": [
-          "价格 100 基础积分\n如果你要购买液体，请提前站在可以承接液体的容器上，比如这个虚空桶！",
+          
+          "价格 100 基础积分\n<item_description:vm_toilet_placer>",
+          "价格 200 基础积分\n<item_description:vm_bathtub_placer>",
           "价格 8500 基础积分\n<item_description:vm_autodoc_placer>",
           "价格 200 基础积分\n<item_description:vm_autodoc_couch_placer>",
           "价格 1 纯净积分",
@@ -316,6 +260,26 @@
       {
         "run_eoc_with": "EOC_VM_base_buy_item",
         "variables": { "query_msg": "确认兑换数量（最多<context_val:max_count>）。", "item_id": "vm_bucket", "price": "100" }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy__vm_toilet_placer",
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_base_buy_item",
+        "variables": { "query_msg": "确认兑换数量（最多<context_val:max_count>）。", "item_id": "vm_toilet_placer", "price": "100" }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_VM_base_buy__vm_bathtub_placer",
+    "effect": [
+      {
+        "run_eoc_with": "EOC_VM_base_buy_item",
+        "variables": { "query_msg": "确认兑换数量（最多<context_val:max_count>）。", "item_id": "vm_bathtub_placer", "price": "200" }
       }
     ]
   },
