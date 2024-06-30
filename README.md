@@ -1,2 +1,3 @@
 # CDDAVoidMarket
-a mod for CDDA
+Now version: 1.5.1
+Now languages support: zh_CN
